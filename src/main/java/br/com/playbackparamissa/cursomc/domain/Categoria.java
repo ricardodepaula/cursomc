@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Categoria implements Serializable {
@@ -22,9 +24,10 @@ public class Categoria implements Serializable {
 	private Integer codigoPai;
 	private Integer pontos;
 	private Integer limiteQuantidade;
-	private Integer limitePontos;	
+	private Integer limitePontos;
 
-	@OneToMany(mappedBy = "categorias")
+	@JsonManagedReference
+	@ManyToMany(mappedBy="categorias")
 	private List<Item> itens = new ArrayList<>();
 	
 	public Categoria() {
@@ -92,7 +95,6 @@ public class Categoria implements Serializable {
 	public void setLimitePontos(Integer limitePontos) {
 		this.limitePontos = limitePontos;
 	}
-
 	
 	public List<Item> getItens() {
 		return itens;

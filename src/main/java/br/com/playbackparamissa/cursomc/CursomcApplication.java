@@ -46,10 +46,10 @@ public class CursomcApplication implements CommandLineRunner {
 		cat2.getItens().addAll( Arrays.asList(i2,i3));
 		cat3.getItens().addAll( Arrays.asList(i4));
 		
-		i1.setCategoria(cat1);
-		i2.setCategoria(cat2);
-		i3.setCategoria(cat2);
-		i4.setCategoria(cat3);
+		i1.getCategorias().addAll(Arrays.asList(cat1));
+		i2.getCategorias().addAll(Arrays.asList(cat2));
+		i3.getCategorias().addAll(Arrays.asList(cat2));
+		i4.getCategorias().addAll(Arrays.asList(cat3));		
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9));
 		itemRepository.saveAll(Arrays.asList(i1,i2,i3,i4));

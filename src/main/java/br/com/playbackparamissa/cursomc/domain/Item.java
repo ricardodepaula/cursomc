@@ -1,6 +1,8 @@
 package br.com.playbackparamissa.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Item implements Serializable {
@@ -20,12 +24,14 @@ public class Item implements Serializable {
 	private String descricao;
 	private Integer cargaHoraria;
 	
-	@ManyToOne
+
+	@JsonBackReference
+	@ManyToMany
 	@JoinTable(name="ITEM_CATEGORIA",
 		joinColumns = @JoinColumn(name = "item_id"),
 		inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
-	private Categoria categorias;
+	private List<Categoria> categorias = new ArrayList<>();
 	
 	Item(){
 		
@@ -62,12 +68,12 @@ public class Item implements Serializable {
 		this.cargaHoraria = cargaHoraria;
 	}
 
-	public Categoria getCategoria() {
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categorias = categoria;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
 	@Override
