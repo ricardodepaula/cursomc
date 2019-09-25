@@ -7,14 +7,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.playbackparamissa.cursomc.domain.enums.Cargo;
 import br.com.playbackparamissa.cursomc.domain.Categoria;
 import br.com.playbackparamissa.cursomc.domain.Cidade;
 import br.com.playbackparamissa.cursomc.domain.Estado;
 import br.com.playbackparamissa.cursomc.domain.Item;
+import br.com.playbackparamissa.cursomc.domain.Local;
+import br.com.playbackparamissa.cursomc.domain.Servidor;
 import br.com.playbackparamissa.cursomc.repositories.CategoriaRepository;
 import br.com.playbackparamissa.cursomc.repositories.CidadeRepository;
 import br.com.playbackparamissa.cursomc.repositories.EstadoRepository;
 import br.com.playbackparamissa.cursomc.repositories.ItemRepository;
+import br.com.playbackparamissa.cursomc.repositories.LocalRepository;
+import br.com.playbackparamissa.cursomc.repositories.ServidorRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
@@ -27,6 +32,11 @@ public class CursomcApplication implements CommandLineRunner {
 	private EstadoRepository estadoRepository;
 	@Autowired 
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ServidorRepository servidorRepository;
+	@Autowired
+	private LocalRepository localRepository;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -75,6 +85,17 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
+		Servidor ser1 = new Servidor(null, "Servidor 01","servidor@mpce.mp.br","12345678900", Cargo.TECNICOMINISTERIAL);
+		
+		ser1.getTelefones().addAll(Arrays.asList("987876565","988776655"));		
+		
+		Local l1 = new Local(null, "1ª Promotoria de Justiça de Uberlandia", null, null, null, null,null, ser1, c1);
+		Local l2 = new Local(null, "1ª Promotoria de Justiça de São Paulo", null, null, null, null,null, ser1, c2);
+		
+		ser1.getLocais().addAll(Arrays.asList(l1,l2));
+		
+		servidorRepository.saveAll(Arrays.asList(ser1));
+		localRepository.saveAll(Arrays.asList(l1,l2));
 	}
 
 }

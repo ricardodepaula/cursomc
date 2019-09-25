@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author ricardo.paula
+ * Classe equivalente ao Produto do Curso
+ */
+
 package br.com.playbackparamissa.cursomc.domain;
 
 import java.io.Serializable;
