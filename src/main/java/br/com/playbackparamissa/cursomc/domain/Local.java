@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Local implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +38,7 @@ public class Local implements Serializable {
 	private Integer codigocc;
 	private Integer id_sgp;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="servidor_id")
 	private Servidor servidor;

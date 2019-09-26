@@ -20,6 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.playbackparamissa.cursomc.domain.enums.Cargo;
 
 @Entity
@@ -35,6 +37,7 @@ public class Servidor implements Serializable {
 	private String cpf;
 	private Integer cargo;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "servidor")
 	private List<Local> locais = new ArrayList<>();
 	
