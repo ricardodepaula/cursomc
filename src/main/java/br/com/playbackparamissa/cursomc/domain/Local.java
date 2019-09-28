@@ -43,7 +43,7 @@ public class Local implements Serializable {
 	@JoinColumn(name="servidor_id")
 	private Servidor servidor;
 	
-	private Local() {
+	public Local() {
 		
 	}
 

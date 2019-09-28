@@ -1,5 +1,6 @@
 package br.com.playbackparamissa.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,19 +8,24 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.com.playbackparamissa.cursomc.domain.enums.Cargo;
+import br.com.playbackparamissa.cursomc.domain.Apuracao;
 import br.com.playbackparamissa.cursomc.domain.Categoria;
 import br.com.playbackparamissa.cursomc.domain.Cidade;
 import br.com.playbackparamissa.cursomc.domain.Estado;
 import br.com.playbackparamissa.cursomc.domain.Item;
 import br.com.playbackparamissa.cursomc.domain.Local;
 import br.com.playbackparamissa.cursomc.domain.Servidor;
+import br.com.playbackparamissa.cursomc.domain.Solicitacao;
+import br.com.playbackparamissa.cursomc.domain.enums.Cargo;
+import br.com.playbackparamissa.cursomc.domain.enums.EstadoApuracao;
+import br.com.playbackparamissa.cursomc.repositories.ApuracaoRepository;
 import br.com.playbackparamissa.cursomc.repositories.CategoriaRepository;
 import br.com.playbackparamissa.cursomc.repositories.CidadeRepository;
 import br.com.playbackparamissa.cursomc.repositories.EstadoRepository;
 import br.com.playbackparamissa.cursomc.repositories.ItemRepository;
 import br.com.playbackparamissa.cursomc.repositories.LocalRepository;
 import br.com.playbackparamissa.cursomc.repositories.ServidorRepository;
+import br.com.playbackparamissa.cursomc.repositories.SolicitacaoRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
@@ -36,7 +42,11 @@ public class CursomcApplication implements CommandLineRunner {
 	private ServidorRepository servidorRepository;
 	@Autowired
 	private LocalRepository localRepository;
-	
+	@Autowired
+	private SolicitacaoRepository solicitacaoRepository;
+	@Autowired
+	private ApuracaoRepository apuracaoRepository;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -96,6 +106,22 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		servidorRepository.saveAll(Arrays.asList(ser1));
 		localRepository.saveAll(Arrays.asList(l1,l2));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Solicitacao sol1 = new Solicitacao(null, sdf.parse("30/09/2018 09:00"), null, ser1);
+		Solicitacao sol2 = new Solicitacao(null, sdf.parse("29/09/2019 09:00"), null, ser1);
+		
+		Apuracao apur1 = new Apuracao(null, EstadoApuracao.APROVADO, sol1, ser1);
+		sol1.setApuracao(apur1);
+		
+		Apuracao apur2 = new Apuracao(null, EstadoApuracao.PENDENTE, sol2, ser1);
+		sol2.setApuracao(apur2);
+		
+		ser1.getSolicitacoes().addAll(Arrays.asList(sol1,sol2));
+		
+		solicitacaoRepository.saveAll(Arrays.asList(sol1,sol2));
+		apuracaoRepository.saveAll(Arrays.asList(apur1,apur2));
+		
 	}
 
 }

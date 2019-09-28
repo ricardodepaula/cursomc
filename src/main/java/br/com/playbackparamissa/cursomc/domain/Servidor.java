@@ -45,7 +45,10 @@ public class Servidor implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	private Servidor() {
+	@OneToMany(mappedBy = "servidor")
+	private List<Solicitacao> solicitacoes = new ArrayList<>();
+	
+	public Servidor() {
 		
 	}
 
@@ -114,6 +117,14 @@ public class Servidor implements Serializable {
 		this.telefones = telefones;
 	}
 
+	public List<Solicitacao> getSolicitacoes() {
+		return solicitacoes;
+	}
+
+	public void setSolicitacoes(List<Solicitacao> solicitacoes) {
+		this.solicitacoes = solicitacoes;
+	}	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -137,8 +148,6 @@ public class Servidor implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	
+	}	
 	
 }
