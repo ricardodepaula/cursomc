@@ -8,7 +8,9 @@ package br.com.playbackparamissa.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -39,6 +42,9 @@ public class Item implements Serializable {
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "id.item")
+	private Set<ItemSolicitacao> itens = new HashSet<>();
+	
 	Item(){
 		
 	}
@@ -48,6 +54,14 @@ public class Item implements Serializable {
 		this.id = id;
 		this.descricao = descricao;
 		this.cargaHoraria = cargaHoraria;
+	}
+	
+	public List<Solicitacao> getSolicitacoes(){
+		List<Solicitacao> lista = new ArrayList<>();
+		for (ItemSolicitacao x : itens) {
+			lista.add(x.getSolicitacao());
+		}
+		return lista;
 	}
 
 	public Integer getId() {
@@ -82,6 +96,14 @@ public class Item implements Serializable {
 		this.categorias = categorias;
 	}
 
+	public Set<ItemSolicitacao> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemSolicitacao> itens) {
+		this.itens = itens;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,6 +127,6 @@ public class Item implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 	
 }

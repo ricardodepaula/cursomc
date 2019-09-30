@@ -2,6 +2,8 @@ package br.com.playbackparamissa.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity 
@@ -28,6 +31,9 @@ public class Solicitacao implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="servidor_id")
 	private Servidor servidor;
+	
+	@OneToMany(mappedBy = "id.solicitacao")	
+	private Set<ItemSolicitacao> itens = new HashSet<>();
 	
 	public Solicitacao() {
 		
@@ -81,6 +87,14 @@ public class Solicitacao implements Serializable {
 		this.servidor = servidor;
 	}	
 
+	public Set<ItemSolicitacao> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemSolicitacao> itens) {
+		this.itens = itens;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,6 +118,6 @@ public class Solicitacao implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 
 }

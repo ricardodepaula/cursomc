@@ -13,6 +13,7 @@ import br.com.playbackparamissa.cursomc.domain.Categoria;
 import br.com.playbackparamissa.cursomc.domain.Cidade;
 import br.com.playbackparamissa.cursomc.domain.Estado;
 import br.com.playbackparamissa.cursomc.domain.Item;
+import br.com.playbackparamissa.cursomc.domain.ItemSolicitacao;
 import br.com.playbackparamissa.cursomc.domain.Local;
 import br.com.playbackparamissa.cursomc.domain.Servidor;
 import br.com.playbackparamissa.cursomc.domain.Solicitacao;
@@ -23,6 +24,7 @@ import br.com.playbackparamissa.cursomc.repositories.CategoriaRepository;
 import br.com.playbackparamissa.cursomc.repositories.CidadeRepository;
 import br.com.playbackparamissa.cursomc.repositories.EstadoRepository;
 import br.com.playbackparamissa.cursomc.repositories.ItemRepository;
+import br.com.playbackparamissa.cursomc.repositories.ItemSolicitacaoRepository;
 import br.com.playbackparamissa.cursomc.repositories.LocalRepository;
 import br.com.playbackparamissa.cursomc.repositories.ServidorRepository;
 import br.com.playbackparamissa.cursomc.repositories.SolicitacaoRepository;
@@ -46,6 +48,8 @@ public class CursomcApplication implements CommandLineRunner {
 	private SolicitacaoRepository solicitacaoRepository;
 	@Autowired
 	private ApuracaoRepository apuracaoRepository;
+	@Autowired
+	private ItemSolicitacaoRepository itemSolicitacaoRepository; 
 
 	
 	public static void main(String[] args) {
@@ -121,6 +125,21 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		solicitacaoRepository.saveAll(Arrays.asList(sol1,sol2));
 		apuracaoRepository.saveAll(Arrays.asList(apur1,apur2));
+		
+		ItemSolicitacao is1 = new ItemSolicitacao(sol1, i1, sdf.parse("30/09/2018 09:00"), sdf.parse("30/10/2018 09:00"), null);
+		ItemSolicitacao is2 = new ItemSolicitacao(sol1, i2, sdf.parse("30/09/2018 09:00"), sdf.parse("30/10/2018 09:00"), null);
+		ItemSolicitacao is3 = new ItemSolicitacao(sol2, i3, sdf.parse("30/09/2018 09:00"), sdf.parse("30/10/2018 09:00"), null);
+		ItemSolicitacao is4 = new ItemSolicitacao(sol2, i4, sdf.parse("30/09/2018 09:00"), sdf.parse("30/10/2018 09:00"), null);
+		
+		sol1.getItens().addAll(Arrays.asList(is1,is2));
+		sol2.getItens().addAll(Arrays.asList(is3,is4));
+		
+		i1.getItens().addAll(Arrays.asList(is1));
+		i2.getItens().addAll(Arrays.asList(is2));
+		i3.getItens().addAll(Arrays.asList(is3));
+		i4.getItens().addAll(Arrays.asList(is4));
+		
+		itemSolicitacaoRepository.saveAll(Arrays.asList(is1,is2,is3,is4));
 		
 	}
 
