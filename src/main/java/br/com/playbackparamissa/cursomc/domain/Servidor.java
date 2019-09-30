@@ -20,8 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.playbackparamissa.cursomc.domain.enums.Cargo;
 
@@ -38,7 +37,6 @@ public class Servidor implements Serializable {
 	private String cpf;
 	private Integer cargo;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy = "servidor")
 	private List<Local> locais = new ArrayList<>();
 	
@@ -46,7 +44,7 @@ public class Servidor implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "servidor")
 	private List<Solicitacao> solicitacoes = new ArrayList<>();
 	

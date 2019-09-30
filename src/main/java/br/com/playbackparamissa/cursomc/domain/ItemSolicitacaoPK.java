@@ -21,15 +21,19 @@ public class ItemSolicitacaoPK implements Serializable {
 	public Solicitacao getSolicitacao() {
 		return solicitacao;
 	}
+	
 	public void setSolicitacao(Solicitacao solicitacao) {
 		this.solicitacao = solicitacao;
 	}
+	
 	public Item getItem() {
 		return item;
 	}
+	
 	public void setItem(Item item) {
 		this.item = item;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -38,6 +42,7 @@ public class ItemSolicitacaoPK implements Serializable {
 		result = prime * result + ((solicitacao == null) ? 0 : solicitacao.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -60,6 +65,4 @@ public class ItemSolicitacaoPK implements Serializable {
 		return true;
 	}
 	
-	
-
 }

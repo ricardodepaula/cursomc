@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Local implements Serializable {
@@ -38,7 +38,7 @@ public class Local implements Serializable {
 	private Integer codigocc;
 	private Integer id_sgp;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="servidor_id")
 	private Servidor servidor;

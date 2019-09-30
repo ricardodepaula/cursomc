@@ -21,7 +21,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -35,7 +34,7 @@ public class Item implements Serializable {
 	private Integer cargaHoraria;
 	
 
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="ITEM_CATEGORIA",
 		joinColumns = @JoinColumn(name = "item_id"),
