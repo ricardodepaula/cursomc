@@ -6,15 +6,23 @@ import java.util.Date;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemSolicitacao implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId
 	private ItemSolicitacaoPK id = new ItemSolicitacaoPK();
 	
-	private Date inicio;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date inicio;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date fim;
+	
 	private String fazeAnexoDepois;
 	
 	public ItemSolicitacao() {
@@ -30,6 +38,7 @@ public class ItemSolicitacao implements Serializable {
 		this.fazeAnexoDepois = fazeAnexoDepois;
 	}
 	
+	@JsonIgnore
 	public Solicitacao getSolicitacao() {
 		return id.getSolicitacao();
 	}

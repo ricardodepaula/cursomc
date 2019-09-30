@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity 
 public class Solicitacao implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,12 +25,16 @@ public class Solicitacao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date dataSolicitacao;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataReferencia;
 	
+	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy = "solicitacao")
 	private Apuracao apuracao;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="servidor_id")
 	private Servidor servidor;
