@@ -3,10 +3,12 @@ package br.com.playbackparamissa.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.playbackparamissa.cursomc.domain.Categoria;
 import br.com.playbackparamissa.cursomc.repositories.CategoriaRepository;
+import br.com.playbackparamissa.cursomc.services.exceptions.DataIntegrityException;
 import br.com.playbackparamissa.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -29,6 +31,17 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui Itens");
+		}
+		
 	}
 
 }
