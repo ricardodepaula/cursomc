@@ -15,7 +15,7 @@ public class ServidorService {
 	@Autowired
 	private ServidorRepository repo;
 	
-	public Servidor buscar(Integer id) {
+	public Servidor find(Integer id) {
 		Optional<Servidor> obj = repo.findById(id);  
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Servidor.class.getName()));  	

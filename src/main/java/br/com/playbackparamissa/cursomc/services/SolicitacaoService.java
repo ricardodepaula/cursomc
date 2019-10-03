@@ -15,7 +15,7 @@ public class SolicitacaoService {
 	@Autowired
 	private SolicitacaoRepository repo;
 	
-	public Solicitacao buscar(Integer id) {
+	public Solicitacao find(Integer id) {
 		Optional<Solicitacao> obj = repo.findById(id);  
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Solicitacao.class.getName()));  	

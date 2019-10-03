@@ -18,8 +18,8 @@ public class ServidorResource {
 	private ServidorService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Servidor obj = service.buscar(id);
+	public ResponseEntity<Servidor> find(@PathVariable Integer id) {
+		Servidor obj = service.find(id);
 		return ResponseEntity.ok().body(obj);		
 	}
 
